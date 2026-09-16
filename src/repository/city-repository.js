@@ -16,6 +16,7 @@ class CityRepository{
             const city = await City.destroy({
                 where: {id: cityID}
             });
+            return true;
         }
         catch(error) {
             console.log("something went wrong in repository layer");
