@@ -1,49 +1,57 @@
-const {City}=require('../models/index')
+const { City } = require('../models/index')
 
-class CityRepository{
-    async createCity({ name }){
-        try{
+class CityRepository {
+    async createCity({ name }) {
+        try {
             const city = await City.create({ name });
             return city;
-        }catch(error){
+        } catch (error) {
             console.log("something went wrong in repository layer");
             throw error;
         }
     }
 
     async deleteCity(cityID) {
-        try{
+        try {
             const city = await City.destroy({
-                where: {id: cityID}
+                where: { id: cityID }
             });
             return true;
         }
-        catch(error) {
+        catch (error) {
             console.log("something went wrong in repository layer");
             throw error;
         }
     }
 
-    async updateCity({cityID,data}) {
-        try{
-            const city = City.update(data, {
-                where: {
-                     id: cityID
-                }
-            });
-        }
-        catch(error) {
-            console.log("something went wrong in repository layer");
-            throw error;
+    async updateCity(cityId, data) { // {name: "Prayagraj"}
+        try {
+            // The below approach also works but will not return updated object
+            // if we are using Pg then returning: true can be used, else not
+            // const city = await City.update(data, {
+            //   where: {
+            //     id: cityId
+            //   },
+            // });
+
+            // for getting updated data in mysql we use the below approach
+            const city = await City.findByPk(cityId);
+            city.name = data.name;
+            await city.save();
+            return city;
+
+        } catch (error) {
+            console.log("Something went wrong in the repository layer");
+            throw { error };
         }
     }
 
-    async getCity(cityID){
-        try{
-            const city =await City.findByPk(cityID);
+    async getCity(cityID) {
+        try {
+            const city = await City.findByPk(cityID);
             return city;
         }
-        catch(error){
+        catch (error) {
             console.log("something went wrong in repository layer");
             throw error;
         }
