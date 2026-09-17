@@ -49,3 +49,11 @@ npx sequelize seed:generate --name add-airports
 
 ```npx sequelize db:seed:all
 ```
+
+``` npx sequelize model:generate --name Airplane --attributes modelNumber:String,capacity:integer
+```
+
+```npx sequelize db:migrate```
+
+``` npx sequelize seed:generate --name add-airplanes
+```
