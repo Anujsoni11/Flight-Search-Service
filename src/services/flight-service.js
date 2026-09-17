@@ -30,6 +30,7 @@ class FlightService{
             console.log("something went wrong in service layer")
             throw error;
         }
+    }
 }
 
 module.exports=FlightService;
