@@ -1,4 +1,5 @@
-const ValidateCreateFlight =(req,res,next)=>{
+const { ClientErrorCodes } = require('../utils/error-codes');
+const validateCreateFlight = (req, res, next) => {
     if(
         !req.body.flightNumber ||
         !req.body.airplaneId ||
@@ -6,19 +7,20 @@ const ValidateCreateFlight =(req,res,next)=>{
         !req.body.arrivalAirportId ||
         !req.body.arrivalTime ||
         !req.body.departureTime ||
-        !req.body.price 
-    ) {
-        //if any of body params is missing we come inside the if
-        return res.status(400).json({
-            data :{},
-            success:false,
-            message:"Invalid request body for create flight",
-            err:"Missing mandatory properties for create a flight"
+        !req.body.price
+    ){
+        // if any of the body params is missing then we come inside if
+        return res.status(ClientErrorCodes.BAD_REQUEST).json({
+            data: {},
+            success: false,
+            message: 'Invalid request body for creating flight',
+            err: 'Missing mandatory properties to create a flight'
         });
     }
+
     next();
 }
 
-module.exports={
-    ValidateCreateFlight
+module.exports = {
+    validateCreateFlight
 }
