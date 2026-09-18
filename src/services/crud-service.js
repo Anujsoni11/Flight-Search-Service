@@ -1,11 +1,11 @@
 class CrudService{
-    constructor(repository){
-        this.repository=repository;
+    constructor(repository) {
+        this.repository = repository;
     }
 
     async create(data){
         try {
-            const response =await this.repository.create(data);
+            const response = await this.repository.create(data);
             return response;
         } catch (error) {
             console.log("Something went wrong in crud service");
@@ -15,8 +15,7 @@ class CrudService{
 
     async destroy(id){
         try {
-            const response =await this.repository.destroy(id);
-            return response;
+            await this.repository.destroy(id);
         } catch (error) {
             console.log("Something went wrong in crud service");
             throw error;
@@ -25,7 +24,7 @@ class CrudService{
 
     async get(id){
         try {
-            const response =await this.repository.get(id);
+            const response = await this.repository.get(id);
             return response;
         } catch (error) {
             console.log("Something went wrong in crud service");
@@ -35,17 +34,17 @@ class CrudService{
 
     async getAll(){
         try {
-            const response =await this.repository.getAll();
+            const response = await this.repository.getAll();
             return response;
         } catch (error) {
             console.log("Something went wrong in crud service");
             throw error;
         }
     }
-    
-    async update(id,data){
+
+    async update(id, data){
         try {
-            const response =await this.repository.update(id,data);
+            const response = await this.repository.update(id, data);
             return response;
         } catch (error) {
             console.log("Something went wrong in crud service");
@@ -54,4 +53,4 @@ class CrudService{
     }
 }
 
-module.exports=CrudService
+module.exports = CrudService;
